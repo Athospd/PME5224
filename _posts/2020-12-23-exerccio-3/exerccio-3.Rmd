@@ -1,0 +1,113 @@
+---
+title: "Exercício 3"
+description: |
+  Sobre análise temporal de convergência do OneMax.
+author:
+  - name: Athos Damiani
+    url: {}
+date: 12-24-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Iremos estudar o tempo de convergência empírica do **OneMax** (quantidade de gerações). Pela fórmula $n \approx -\ln(\alpha) 2^{k-1}\frac{\sigma_{BB}\sqrt(2m)}{d}$, o tamanho da população adequada é $n = -ln(0.01)\sqrt{2m}$. O plano será simular para $m = 10, 100$ e $1000$, então usaremos $n = 21, 66$ e $206$ respectivamente.
+
+## Conclusão e discussão
+
+
+## Códigos e Gráficos
+
+### Setups e funções auxiliares
+
+```{r}
+library(reticulate)
+library(purrr)
+library(ggplot2)
+library(tidyverse)
+library(glue)
+library(torch)
+theme_set(theme_gray(16))
+```
+
+```{python}
+import deap
+import random
+import math
+from deap import creator, base, tools, algorithms
+import numpy as np 
+from matplotlib import pyplot
+```
+
+```{python}
+
+def evalOneMax(individual, k = None):
+    return sum(individual),0
+
+def prepare_toolbox(fitness, n_chromossomes, n_torneios):
+  # toolbox
+  toolbox = base.Toolbox()
+  toolbox.register("attr_bool", random.randint, 0, 1)
+  toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n = n_chromossomes)
+  toolbox.register("population", tools.initRepeat, creator.Population, toolbox.individual)
+  # genetic operators
+  toolbox.register("evaluate", fitness)
+  toolbox.register("mate", tools.cxTwoPoint)
+  toolbox.register("mutate", tools.mutFlipBit, indpb = 0.05)
+  toolbox.register("select", tools.selTournament, tournsize = n_torneios)
+  return toolbox
+
+# main function - run genetic algorithm
+def runGA(fitness, n_chromossomes, n_torneios, npop = 1000, ngen_max = 100, cxpb = 0.7, mutpb = 0.1, epsilon = 1e-6):
+  # toolbox for ONEMAX
+  toolbox_onemax = prepare_toolbox(fitness = fitness, n_chromossomes = n_chromossomes, n_torneios = n_torneios)
+  # population
+  pop = toolbox_onemax.population(npop)
+  # evolution loop
+  tgs = []
+  for g in range(ngen_max):
+    offspring = algorithms.varAnd(pop, toolbox_onemax, cxpb=cxpb, mutpb=mutpb)
+    fits = toolbox_onemax.map(toolbox_onemax.evaluate, offspring)
+    for fit, ind in zip(fits, offspring):
+      ind.fitness.values = fit
+    pop = toolbox_onemax.select(offspring, k=len(pop))
+    popselected = tools.selBest(pop, len(pop)//2)
+    
+    fits = toolbox_onemax.map(toolbox_onemax.evaluate, popselected)
+    fbarra_t = 0
+    for fit, ind in zip(fits, popselected):
+      fbarra_t += fit[0]
+    fbarra_t /= len(pop)//2
+    sigma_t_menos_um = np.std(pop)
+    I = sigma_t_menos_um/fbarra_t
+    tg = np.sqrt(n_chromossomes)*np.pi/(2*I)
+    tgs.append(tg)
+  print("tgs:")
+  return tgs
+
+```
+
+```{python}
+# creators
+creator.create("FitnessMax", base.Fitness, weights=(1,))
+creator.create("Individual", list, fitness = creator.FitnessMax)
+creator.create("Population", list)
+```
+
+```{python}
+runGA(evalOneMax, 10, 2, 26)
+```
+
+```{python}
+runGA(evalOneMax, 100, 2, 66)
+```
+
+```{python}
+runGA(evalOneMax, 1000, 2, 206)
+```
+

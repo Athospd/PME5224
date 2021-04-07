@@ -1,0 +1,10 @@
+name: "."
+title: "Exercícios para SSC5980"
+description: |
+  Exercícios para SSC5980
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+output: distill::distill_article

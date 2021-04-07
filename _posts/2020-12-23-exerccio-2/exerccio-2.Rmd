@@ -1,0 +1,125 @@
+---
+title: "Exercício 2"
+description: |
+  Sobre risco de ótimos locais dominarem.
+author:
+  - name: Athos Damiani
+    url: {}
+date: 12-22-2020
+output:
+  distill::distill_article:
+    self_contained: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+Função do tamanho da população $n$:
+
+$$
+n \approx -\ln(\alpha) 2^{k-1}\frac{\sigma_{BB}\sqrt(2m)}{d}
+$$
+Em que 
+
+- $m$ é o tamanho do $BB$, 
+- $k$ é o tamanho da fitness armadilha (trap), 
+- $d$ é a distância entre ótimos global e local das traps,
+- $\sigma_{BB}$ é o desvio padrão de cada um dos $BB$s, 
+- $\alpha = 1/\ell$ é o risco que vamos supor do ótimo local dominar e
+- $\ell = mk$ é tamanho do cromossomo.
+
+
+## Conclusão e discussão
+
+- Acabei encontrando uma relação entre $\sigma_{BB}$ com $m$ e $k$ que leva em consideração termos $2^k$, $m^k$ e $exp(klog^2(m))$
+
+## Códigos e Gráficos
+
+### Setups e funções auxiliares
+
+```{r}
+library(reticulate)
+library(purrr)
+library(ggplot2)
+library(tidyverse)
+library(glue)
+library(torch)
+theme_set(theme_gray(16))
+```
+
+```{r}
+# funcao n da população teórica
+n_teorico <- function(k, m, s, d, a) (-log(a)) * (2^(k-1)) * (s * sqrt(2*m)/d)
+```
+
+```{r}
+# gera populacao de tamanho n, boloco m e trapsize k (array 3D)
+gera_populacao <- function(n, m, k) {
+  torch_randint(0, 2, size = c(n, m, k))
+}
+
+# verifica se tem solucao otima na populacao
+populacao_tem_pelo_menos_um_bloco_otimo_por_individuo <- function(populacao) {
+  dims <- dim(populacao)
+  m <- dims[2]
+  k <- dims[3]
+  as.logical(((populacao$sum(3) == k)$sum(1) > 0)$sum() == m)
+}
+
+# funcao n da populacao simulada
+n_simulado <- function(k, m)  {
+  pop_tem_solucao_otima = FALSE
+  n <- 1
+  while(n < 2000 & !pop_tem_solucao_otima) {
+    pop <- gera_populacao(n, m, k)
+    pop_tem_solucao_otima <- populacao_tem_pelo_menos_um_bloco_otimo_por_individuo(pop)
+    n = n + 1
+  }
+  return(n)
+}
+
+n_simulado_h_vezes <- function(k, m, h = 3) {
+  res <- mean(replicate(h, n_simulado(k, m)))
+}
+
+```
+
+```{r}
+# grade de parâmetros (k, m, s, d)
+parametros <- expand.grid(
+  k = c(1, 2, 4, 8),
+  m = round(10^seq(0, 3, l = 20)),
+  s = 2,
+  d = 1
+) %>%
+  distinct() %>%
+  rowwise() %>%
+  mutate(
+    a = 1/(m*k),
+    n_teorico  = n_teorico(k, m, s, d, a),
+    n_simulado = n_simulado_h_vezes(k, m)
+  )
+
+knitr::kable(head(parametros))
+```
+
+
+```{r, fig.width=8, fig.height=6}
+f_sbb <- function(k, m) 2^(1.5 - k/1.5) * m^(-0.6)*m^(0.12*k) * exp(-0.01*k*(log(m)^2)) 
+parametros %>%
+  mutate(
+    s = f_sbb(k,m),
+    n_teorico  = n_teorico(k, m, s, d, a)
+  ) %>%
+  ggplot(aes(x = m, colour = factor(k))) +
+  geom_point(aes(y = n_simulado)) +
+  geom_line(aes(y = n_teorico)) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Número de BBs (m)", y = "Tamanho da População (n)", colour = "k", linetype = "sigmaBB", shape = "sigmaBB")
+```
+
+
