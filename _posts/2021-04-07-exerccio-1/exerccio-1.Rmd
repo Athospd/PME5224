@@ -2,6 +2,7 @@
 title: "Exercício 1"
 description: |
   Convergência das séries de Fourier.
+preview: exercicio-1.png
 author:
   - first_name: "Athos"
     last_name: "Damiani"
