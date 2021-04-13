@@ -1,10 +1,10 @@
 name: "."
-title: "Exercícios para SSC5980"
+title: "Exercícios para PME5224"
 description: |
-  Exercícios para SSC5980
+  Exercícios da disciplina PME5224 - Processamento de Sinais Aplicado à Engenharia Mecânica - que fiz em abril de 2021. Ministrada pelo Professor Flavius Portella Ribas Martins.
 output_dir: "docs"
 navbar:
   right:
-    - text: "Home"
+    - text: "Início"
       href: index.html
 output: distill::distill_article

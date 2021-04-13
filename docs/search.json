@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Exercícios da disciplina PME5224",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-04-13T01:05:20-03:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

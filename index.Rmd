@@ -1,5 +1,5 @@
 ---
-title: "Exercícios para SSC5980"
+title: "Exercícios da disciplina PME5224"
 site: distill::distill_website
 listing: posts
 ---
