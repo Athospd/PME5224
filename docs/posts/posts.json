@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-04-13-exerccio-2/",
+    "title": "Exercício 2",
+    "description": "Transformada de Fourier.",
+    "author": [
+      {
+        "name": "Athos Damiani",
+        "url": "https://github.com/athospd"
+      }
+    ],
+    "date": "2021-04-13",
+    "categories": [],
+    "contents": "\n\nItem (a)\nA transformada \\(F(\\omega)\\) de \\(f(t)\\) na sua forma cartesiana é\n\\[\n\\begin{eqnarray}\nF(\\omega) & = & \\int_{-1}^1 (1+t)e^{-i\\omega t} + \\int_1^21e^{-i\\omega t} = \\\\\n  & = & \\frac{\\sin(\\omega) + \\sin(2\\omega)}{\\omega} + i\\frac{\\cos(\\omega) + \\cos(2\\omega) - \\frac{2}{\\omega}\\sin(\\omega)}{\\omega}\\\\\n\\end{eqnarray}\n\\]\nlogo,\n\\[\n\\begin{eqnarray}\nA(\\omega) & = & \\frac{\\sin(\\omega) + \\sin(2\\omega)}{\\omega}\\\\\nB(\\omega) & = & \\frac{\\cos(\\omega) + \\cos(2\\omega) - \\frac{2}{\\omega}\\sin(\\omega)}{\\omega}\\\\\n\\end{eqnarray}\n\\]\nAssim, já que a forma polar de \\(F(\\omega) = |F(\\omega)|e^{i\\theta(\\omega)}\\) com\n\\[\n\\begin{eqnarray}\n|F(\\omega)| &=& \\sqrt{A(\\omega)^2 + B(\\omega)^2} \\\\\n\\theta(\\omega) &=& \\tan^{-1}\\bigg(\\frac{B(\\omega)}{A(\\omega)}\\bigg)\\\\\n\\end{eqnarray}\n\\] Tem-se,\n\\[\n\\begin{eqnarray}\n|F(\\omega)| & = & \\frac{\\sqrt{2\\big[1 - \\cos(2\\omega)+ \\omega[\\sin(\\omega) - \\sin(2\\omega) - \\sin(3\\omega)] + \\omega^2[1 + \\cos(\\omega)]\\big]}}{w^2}\\\\\n\\theta(\\omega) & = & \\tan^{-1}\\bigg(\\frac{\\cos(\\omega) + \\cos(2\\omega) - \\frac{2}{\\omega}\\sin(\\omega)}{\\sin(\\omega) + \\sin(2\\omega)}\\bigg)\\\\\n\\end{eqnarray}\n\\]\ndiagramas de Bode\n\n\nA <- function(w) (sin(w) + sin(2*w))/w\nB <- function(w) (cos(w) + cos(2*w) - (2/w)*sin(w))/w\nMod_F <- function(w) sqrt(A(w)^2 + B(w)^2)\ntheta <- function(w) atan(B(w)/A(w))\n\n\n\n\n\nw <- seq(0.1, 10, l = 100000)\nplot(log10(w), 20*log10(Mod_F(w)), type = \"l\", main = \"Freq vs Magnitude (escala log-log)\")\n\n\n\nplot(log10(w), theta(w), type = \"l\", main = \"Freq vs Fase (escala log-linear)\")\n\n\n\n\nItem (b)\nO espectro de energia é definido como \\(E(\\omega) = \\frac{1}{2\\pi}|F(\\omega)|^2\\).\n\n\nw <- seq(-10, 10, l = 100000)\nE <- function(w) (1/(2*pi)) * Mod_F(w)^2\nplot((w), E(w), type = \"l\", main = \"Freq vs Espectro de Energia\")\n\n\n\n\nItem (c)\nA energia de \\(f(t)\\) é \\(E = \\int_{\\omega = -\\infty}^{\\infty}E(\\omega)d\\omega \\approx 3.665\\)\n\n\nsafe_E <- function(w) {\n  r <- E(w)\n  ifelse(is.finite(r), r, 0)\n}\nintegrate(safe_E, -500, 500)\n\n\n3.665392 with absolute error < 0.00043\n\n\n\n\n",
+    "preview": "posts/2021-04-13-exerccio-2/exercicio-2.png",
+    "last_modified": "2021-04-17T02:03:20-03:00",
+    "input_file": "exerccio-2.utf8.md"
+  },
+  {
     "path": "posts/2021-04-07-exerccio-1/",
     "title": "Exercício 1",
     "description": "Convergência das séries de Fourier.",
@@ -9,11 +26,11 @@
         "url": "https://github.com/athospd"
       }
     ],
-    "date": "2021-04-13",
+    "date": "2021-04-12",
     "categories": [],
     "contents": "\n\nItem (a)\nCom período \\(T_0=3\\), tem-se \\(\\omega_0 = \\frac{2\\pi}{3}\\) e a expressão da série de Fourier de \\(f(t)\\) fica\n\\[\nf(t) = \\frac{a_0}{2} + \\sum_{n = -\\infty}^{\\infty} \\bigg[a_n\\cos(2\\pi t/3) + b_n\\sin(2\\pi t/3)\\bigg] \n\\] em que \\(a_0\\), \\(a_n\\) e \\(b_n\\) são: (calculados pelo Wolfram Alpha)\n\\[\n\\begin{eqnarray}\na_0 & = & \\frac{2}{3} \\bigg[ \\int_0^10dt + \\int_1^2(t-1)dt + \\int_2^3(4-t)dt\\bigg] = \\frac{2}{3} \\bigg[ 0 + \\frac{1}{2} + \\frac{3}{2} \\bigg] = \\bbox[border: 1px solid black]{\\frac{4}{3}}\\\\\n\\\\\na_n & = & \\frac{2}{3} \\bigg[ \\int_0^10dt + \\int_1^2(t-1)cos(n2\\pi/3)dt + \\int_2^3(4-t)cos(n2\\pi/3)dt\\bigg] = \\\\\n    & = & \\bbox[border: 1px solid black]{\\frac{\\sin(n\\pi/3)}{\\pi^2n^2}\\bigg[3\\sin(5n\\pi/3) + 2n\\pi\\cos(5n\\pi/3) -3\\sin(n\\pi) \\bigg]}\\\\\n    \\\\\nb_n & = & \\frac{2}{3} \\bigg[ \\int_0^10dt + \\int_1^2(t-1)sin(n2\\pi/3)dt + \\int_2^3(4-t)sin(n2\\pi/3)dt\\bigg] = \\\\\n    & = & \\bbox[border: 1px solid black]{\\frac{1}{2\\pi^2n^2}\\bigg[6\\sin(4n\\pi/3)  + 2n\\pi\\cos(4n\\pi/3) -3\\sin(2n\\pi) - 2n\\pi\\cos(2n\\pi)  - 3\\sin(2n\\pi/3)}\\bigg]\n\\end{eqnarray}\n\\]\nItem (b)\n\n\n#an\na <- function(n) sin(n*pi/3)/(pi^2*n^2) * (3*sin(5*n*pi/3) + 2*n*pi*cos(5*n*pi/3) - 3*sin(n*pi))\n\n#bn\nb <- function(n) 1/(2*pi^2*n^2) * (6*sin(4*n*pi/3) + 2*n*pi*cos(4*n*pi/3) - 3*sin(2*n*pi) - 2*n*pi*cos(2*n*pi) - 3 * sin(2*n*pi/3))\n\n\n\n\\[\n\\begin{eqnarray}\na_1 & = & \\phantom{-}0.04769  & ; & b_1 & = &  -0.87233 \\\\\na_2 & = & -0.19483    & ; & b_2 & = &  -0.14002 \\\\\na_3 & = & -2.59878e-17 & ; & b_3 & = &  \\phantom{-}4.13609e-18 \\\\\n\\end{eqnarray}\n\\]\nItem (c)\nSegundo o Teorema de Parseval, a potẽncia média \\(\\bar{P}\\) dos três primeiros harmônicos é:\n\\[\n\\begin{eqnarray}\n\\bar{P} & = & a_0^2 + \\sum_1^3 (a_n^2 + b_n^2) = \\bbox[border: 1px solid black]{2.598565}\\\\\n\\end{eqnarray}\n\\]\n\n\n\n",
     "preview": "posts/2021-04-07-exerccio-1/exercicio-1.png",
-    "last_modified": "2021-04-13T01:09:33-03:00",
+    "last_modified": "2021-04-13T01:17:18-03:00",
     "input_file": "exerccio-1.utf8.md"
   }
 ]
