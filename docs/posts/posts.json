@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-04-17-exerccio-3/",
+    "title": "Exercício 3",
+    "description": "Teorema da Convolução.",
+    "author": [
+      {
+        "name": "Athos Damiani",
+        "url": "https://github.com/athospd"
+      }
+    ],
+    "date": "2021-04-17",
+    "categories": [],
+    "contents": "\n\nItem (a)\n\n\nf <- function(t, l = 1) ifelse(t > 0, exp(-l*t), 0)\nh <- function(t) ifelse(abs(t) <= 1, 1, 0)\n\nt <- seq(-5, 5, l = 100)\nplot(t, h(t), type = \"l\", ylab = \"h(t) - red; f(t) - black\")\nlines(t, f(t), col = \"red\")\n\n\n\n\n\n\n\n",
+    "preview": "posts/2021-04-17-exerccio-3/exercicio-3.png",
+    "last_modified": "2021-04-17T02:18:42-03:00",
+    "input_file": "exerccio-3.utf8.md"
+  },
+  {
     "path": "posts/2021-04-13-exerccio-2/",
     "title": "Exercício 2",
     "description": "Transformada de Fourier.",

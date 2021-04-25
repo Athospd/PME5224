@@ -1,0 +1,37 @@
+---
+title: "Exercício 3"
+description: |
+  Teorema da Convolução.
+preview: exercicio-3.png
+author:
+  - first_name: "Athos"
+    last_name: "Damiani"
+    url: https://github.com/athospd
+    affiliation: PPGEM - POLI/USP
+    affiliation_url: http://ppgem.poli.usp.br/pt/
+    orcid_id: 0000-0002-2857-5936
+date: 04-17-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+![](exercicio-3.png)
+
+### Item (a)
+
+```{r}
+f <- function(t, l = 1) ifelse(t > 0, exp(-l*t), 0)
+h <- function(t) ifelse(abs(t) <= 1, 1, 0)
+
+t <- seq(-5, 5, l = 100)
+plot(t, h(t), type = "l", ylab = "h(t) - red; f(t) - black")
+lines(t, f(t), col = "red")
+```
+
+
