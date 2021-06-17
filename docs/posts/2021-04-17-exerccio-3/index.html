@@ -23,6 +23,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -111,12 +112,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Exercício 3"]},{"type":"character","attributes":{},"value":["Teorema da Convolução."]},{"type":"character","attributes":{},"value":["exercicio-3.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Athos"]},{"type":"character","attributes":{},"value":["Damiani"]},{"type":"character","attributes":{},"value":["https://github.com/athospd"]},{"type":"character","attributes":{},"value":["PPGEM - POLI/USP"]},{"type":"character","attributes":{},"value":["http://ppgem.poli.usp.br/pt/"]},{"type":"character","attributes":{},"value":["0000-0002-2857-5936"]}]}]},{"type":"character","attributes":{},"value":["04-17-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","preview","author","date","header-includes","output"]}},"value":[{"type":"character","attributes":{},"value":["Exercício 3"]},{"type":"character","attributes":{},"value":["Teorema da Convolução."]},{"type":"character","attributes":{},"value":["exercicio-3.png"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["first_name","last_name","url","affiliation","affiliation_url","orcid_id"]}},"value":[{"type":"character","attributes":{},"value":["Athos"]},{"type":"character","attributes":{},"value":["Damiani"]},{"type":"character","attributes":{},"value":["https://github.com/athospd"]},{"type":"character","attributes":{},"value":["PPGEM - POLI/USP"]},{"type":"character","attributes":{},"value":["http://ppgem.poli.usp.br/pt/"]},{"type":"character","attributes":{},"value":["0000-0002-2857-5936"]}]}]},{"type":"character","attributes":{},"value":["04-17-2021"]},{"type":"character","attributes":{},"value":["\\usepackage[makeroom]{cancel}"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["exerccio-3_files/anchor-4.2.2/anchor.min.js","exerccio-3_files/bowser-1.9.3/bowser.min.js","exerccio-3_files/distill-2.2.21/template.v2.js","exerccio-3_files/figure-html5/unnamed-chunk-1-1.png","exerccio-3_files/header-attrs-2.7/header-attrs.js","exerccio-3_files/jquery-1.11.3/jquery.min.js","exerccio-3_files/popper-2.6.0/popper.min.js","exerccio-3_files/tippy-6.2.7/tippy-bundle.umd.min.js","exerccio-3_files/tippy-6.2.7/tippy-light-border.css","exerccio-3_files/tippy-6.2.7/tippy.css","exerccio-3_files/tippy-6.2.7/tippy.umd.min.js","exerccio-3_files/webcomponents-2.0.0/webcomponents.js","exercicio-3.png"]}
+  {"type":"character","attributes":{},"value":["exerccio-3_files/anchor-4.2.2/anchor.min.js","exerccio-3_files/bowser-1.9.3/bowser.min.js","exerccio-3_files/distill-2.2.21/template.v2.js","exerccio-3_files/figure-html5/unnamed-chunk-1-1.png","exerccio-3_files/figure-html5/unnamed-chunk-2-1.png","exerccio-3_files/header-attrs-2.7/header-attrs.js","exerccio-3_files/jquery-1.11.3/jquery.min.js","exerccio-3_files/popper-2.6.0/popper.min.js","exerccio-3_files/tippy-6.2.7/tippy-bundle.umd.min.js","exerccio-3_files/tippy-6.2.7/tippy-light-border.css","exerccio-3_files/tippy-6.2.7/tippy.css","exerccio-3_files/tippy-6.2.7/tippy.umd.min.js","exerccio-3_files/webcomponents-2.0.0/webcomponents.js","exercicio-3.png","images/conv_gif.gif"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2098,18 +2099,117 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="d-article">
 <p><img src="exercicio-3.png" /></p>
-<h3 id="item-a">Item (a)</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>t</span> <span class='op'>&gt;</span> <span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>l</span><span class='op'>*</span><span class='va'>t</span><span class='op'>)</span>, <span class='fl'>0</span><span class='op'>)</span>
-<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>&lt;=</span> <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>(</span><span class='va'>t</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>t</span><span class='op'>*</span><span class='va'>l</span><span class='op'>)</span>
+<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>tau</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>10</span>,l<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'>f</span><span class='op'>(</span><span class='va'>tau</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'>h</span><span class='op'>(</span><span class='va'>t</span><span class='op'>-</span><span class='va'>tau</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>5</span>, l <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>t</span>, <span class='fu'>h</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"l"</span>, ylab <span class='op'>=</span> <span class='st'>"h(t) - red; f(t) - black"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>t</span>, <span class='fu'>f</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+<span class='va'>tau</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>10</span>,l<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>tau</span>, <span class='fu'>h</span><span class='op'>(</span><span class='va'>tau</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"l"</span>, ylab <span class='op'>=</span> <span class='st'>"h(tau) - red; f(tau) - black"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>tau</span>, <span class='fu'>f</span><span class='op'>(</span><span class='va'>tau</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="exerccio-3_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
+</div>
+<h3 id="item-a">Item (a)</h3>
+<p>Se <span class="math inline">\(t \lt -1\)</span></p>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+  MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions.macros,{
+    cancel: ["Extension","cancel"],
+    bcancel: ["Extension","cancel"],
+    xcancel: ["Extension","cancel"],
+    cancelto: ["Extension","cancel"]
+  });
+});
+</script>
+<p><span class="math display">\[
+\begin{eqnarray}
+g(t) &amp; = &amp; \int_{-\infty}^{\infty}f(\tau)h(t - \tau)d\tau = \\
+     &amp; = &amp; \int_{-\infty}^{0}0h(t - \tau)d\tau  + \int_{0}^{\infty}f(\tau)0d\tau = 0\\
+\end{eqnarray}
+\]</span></p>
+<p>Se <span class="math inline">\(-1 \le t \le 1\)</span></p>
+<p><span class="math display">\[
+\begin{eqnarray}
+g(t) &amp; = &amp; \int_{-\infty}^{\infty}f(\tau)h(t - \tau)d\tau = \\
+     &amp; = &amp; \cancel{\int_{t-1}^{0}e^{-\lambda\tau}0d\tau}  + \int_{0}^{t+1}e^{-\lambda\tau}1d\tau = \\
+     &amp; = &amp; \frac{-e^{-\lambda\tau}}{\lambda}\bigg\rvert_{0}^{t+1} = \frac{1 - e^{-\lambda(t+1)}}{\lambda}\\
+\end{eqnarray}
+\]</span></p>
+<p>Se <span class="math inline">\(t \gt 1\)</span></p>
+<p><span class="math display">\[
+\begin{eqnarray}
+g(t) &amp; = &amp; \int_{-\infty}^{\infty}f(\tau)h(t - \tau)d\tau = \\
+     &amp; = &amp; \int_{t-1}^{t+1}e^{-\lambda\tau}d\tau = \\
+     &amp; = &amp; \frac{-e^{-\lambda\tau}}{\lambda}\bigg\rvert_{t-1}^{t+1} = \frac{-e^{-\lambda\tau}}{\lambda}\bigg\rvert_{0}^{t+1} = \frac{e^{-\lambda(t-1)} - e^{-\lambda(t+1)}}{\lambda}\\
+\end{eqnarray}
+\]</span></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ts</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>10</span>,l<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='va'>t</span> <span class='op'>&lt;</span> <span class='op'>-</span><span class='fl'>1</span> <span class='op'>~</span> <span class='fl'>0</span>,
+    <span class='va'>t</span> <span class='op'>&lt;</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='op'>(</span><span class='fl'>1</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>l</span><span class='op'>*</span><span class='op'>(</span><span class='va'>t</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='va'>l</span>,
+    <span class='va'>t</span> <span class='op'>&gt;=</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>l</span><span class='op'>*</span><span class='op'>(</span><span class='va'>t</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>l</span><span class='op'>*</span><span class='op'>(</span><span class='va'>t</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='va'>l</span>
+  <span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ts</span>, <span class='fu'>g</span><span class='op'>(</span><span class='va'>ts</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="exerccio-3_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<h3 id="item-b">Item (b)</h3>
+<p>Seja <span class="math inline">\(F(\omega)\)</span> e <span class="math inline">\(H(\omega)\)</span> as respectivas trasnformadas de Fourier de <span class="math inline">\(f(t)\)</span> e <span class="math inline">\(h(t)\)</span> respectivamente.</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+F(\omega) &amp; = &amp; \int_{0}^{\infty}e^{-\lambda \tau} e^{-i 2 \pi  \omega \tau} d\tau = \frac{1}{\lambda + 2i\pi\omega}\\
+H(\omega) &amp; = &amp; \int_{-1}^{1} e^{-i 2 \pi  \omega \tau} d\tau = \frac{\sin(2\pi\omega)}{\pi \omega}\\
+\end{eqnarray}
+\]</span></p>
+<p>O teorema da convolução garante que</p>
+<p><span class="math display">\[
+\mathcal{F} \big\{g(t)\big\} = \mathcal{F} \Bigg\{ \int_{-\infty}^{\infty}f(\tau)\cdot h(t - \tau)d\tau \Bigg\} = F(\omega)\cdot H(\omega) = \frac{1}{\lambda + 2i\pi\omega}\frac{\sin(2\pi\omega)}{\pi \omega}
+\]</span></p>
+<p>Agora aplicamos a transformada de Fourier inversa para retomarmos <span class="math inline">\(g(t)\)</span></p>
+<p><span class="math display">\[
+\begin{eqnarray}
+g(t) &amp;=&amp; \mathcal{F}^{-1}\big\{\mathcal{F}\{g(t)\}\big\} = \mathcal{F}^{-1}\Bigg\{\frac{1}{\lambda + 2i\pi\omega}\frac{\sin(2\pi\omega)}{\pi \omega}\Bigg\} = \\
+&amp;=&amp; \int_{-\infty}^{\infty}\\
+\end{eqnarray}
+\]</span></p>
+<h3 id="extra---gif-da-convolução">Extra - GIF da convolução</h3>
+<p><img src="images/conv_gif.gif" width="400" /></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Código pra gerar o gif</span>
+<span class='fu'>animation</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/animation/man/saveGIF.html'>saveGIF</a></span><span class='op'>(</span><span class='op'>{</span>
+  <span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span> <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>(</span><span class='va'>t</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>t</span><span class='op'>*</span><span class='va'>l</span><span class='op'>)</span>
+  <span class='va'>h</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>&lt;</span> <span class='fl'>1</span><span class='op'>)</span>
+  <span class='va'>g</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>tau</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>10</span>,l<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>t</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='fu'>f</span><span class='op'>(</span><span class='va'>tau</span><span class='op'>)</span> <span class='op'>*</span> <span class='fu'>h</span><span class='op'>(</span><span class='va'>t</span><span class='op'>-</span><span class='va'>tau</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>tau</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>10</span>,l<span class='op'>=</span><span class='fl'>1000</span><span class='op'>)</span>
+  <span class='va'>ts</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>,<span class='fl'>10</span>,l<span class='op'>=</span><span class='fl'>100</span><span class='op'>)</span>
+  <span class='va'>gs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>
+
+  <span class='kw'>for</span><span class='op'>(</span><span class='va'>t</span> <span class='kw'>in</span> <span class='va'>ts</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>tau</span>, <span class='fu'>h</span><span class='op'>(</span><span class='va'>t</span><span class='op'>-</span><span class='va'>tau</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"l"</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='va'>tau</span>, <span class='fu'>f</span><span class='op'>(</span><span class='va'>tau</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span>
+    
+    <span class='va'>gs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>gs</span>, <span class='fu'>g</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span><span class='op'>)</span>
+    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ts</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>gs</span><span class='op'>)</span><span class='op'>]</span>, <span class='va'>gs</span>, 
+         xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>ts</span><span class='op'>)</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0.08</span><span class='op'>)</span>, 
+         type <span class='op'>=</span> <span class='st'>"l"</span>, xlab <span class='op'>=</span> <span class='st'>"t"</span>, ylab <span class='op'>=</span> <span class='st'>"g(t)"</span><span class='op'>)</span>
+    
+    <span class='fu'><a href='https://rdrr.io/r/base/Sys.sleep.html'>Sys.sleep</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span>
+  <span class='op'>}</span>
+<span class='op'>}</span>, interval <span class='op'>=</span> <span class='fl'>0.05</span><span class='op'>)</span>
+</code></pre>
+</div>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
@@ -2119,6 +2219,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->

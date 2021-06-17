@@ -1,5 +1,39 @@
 [
   {
+    "path": "posts/2021-04-30-exerccio-4/",
+    "title": "Exercício 4",
+    "description": "Transformada de Fourier Discreta (Discrete Fourier Transform).",
+    "author": [
+      {
+        "name": "Athos Damiani",
+        "url": "https://github.com/athospd"
+      }
+    ],
+    "date": "2021-05-03",
+    "categories": [],
+    "contents": "\n\n\n\nlibrary(tidyverse)\nlibrary(ggridges)\n\n\n\n\n\nfa <- function(t, w = pi*5) sin(w*t)\nfb <- function(t) as.numeric(abs(t) < 1)\nfc <- function(t, a = 1, b = 1) (abs(t) < a/2) * ifelse(t < 0, b + t * (2*b/a), b + t * (-2*b/a))\nfd <- function(t, a = 1, b = 1) (t < 0) * (t > -a/2) * (-2*b/a) * t\n\nt <- seq(-pi/2, pi/2, length = 100000)\n\n\n\n\n\nShow code\n\nfs <- bind_cols(\n  t = t,\n  fa = fa(t)/2 + 0.5,\n  fb = fb(t),\n  fc = fc(t, a = 1),\n  fd = fd(t, a = 1)\n) %>%\n  pivot_longer(-t, names_to = \"f\", values_to = \"f_t\") %>%\n  group_by(f) %>%\n  mutate(fft_w = fft(f_t))\n\nfs %>%\n  ggplot() +\n  geom_line(aes(x = t, y = f_t, colour = f), show.legend = FALSE, size = 2) +\n  theme_void() +\n  facet_wrap(~f)\n\n\n\n\n\n\n\n",
+    "preview": "posts/2021-04-30-exerccio-4/exercicio-4.png",
+    "last_modified": "2021-04-30T22:11:43-03:00",
+    "input_file": "exerccio-4.utf8.md"
+  },
+  {
+    "path": "posts/2021-06-17-exerccio-5/",
+    "title": "Exercício 5",
+    "description": "Transformada de Fourier Discreta (Discrete Fourier Transform).",
+    "author": [
+      {
+        "name": "Athos Damiani",
+        "url": "https://github.com/athospd"
+      }
+    ],
+    "date": "2021-05-03",
+    "categories": [],
+    "contents": "\r\n\r\n\r\n\r\n\r\n",
+    "preview": "posts/2021-06-17-exerccio-5/exercicio-5.png",
+    "last_modified": "2021-06-17T13:57:55-03:00",
+    "input_file": "exerccio-5.knit.md"
+  },
+  {
     "path": "posts/2021-04-17-exerccio-3/",
     "title": "Exercício 3",
     "description": "Teorema da Convolução.",
@@ -11,9 +45,9 @@
     ],
     "date": "2021-04-17",
     "categories": [],
-    "contents": "\n\nItem (a)\n\n\nf <- function(t, l = 1) ifelse(t > 0, exp(-l*t), 0)\nh <- function(t) ifelse(abs(t) <= 1, 1, 0)\n\nt <- seq(-5, 5, l = 100)\nplot(t, h(t), type = \"l\", ylab = \"h(t) - red; f(t) - black\")\nlines(t, f(t), col = \"red\")\n\n\n\n\n\n\n\n",
+    "contents": "\r\n\r\n\r\n\r\nf <- function(t, l = 1) (t>0)*exp(-t*l)\r\nh <- function(t) as.numeric(abs(t) < 1)\r\ng <- function(t, tau = seq(-2,10,l=1000)) mean(f(tau) * h(t-tau))\r\n\r\ntau <- seq(-2,10,l=1000)\r\nplot(tau, h(tau), type = \"l\", ylab = \"h(tau) - red; f(tau) - black\")\r\nlines(tau, f(tau), col = \"red\")\r\n\r\n\r\n\r\n\r\nItem (a)\r\nSe \\(t \\lt -1\\)\r\n\r\nMathJax.Hub.Register.StartupHook(\"TeX Jax Ready\",function () {\r\n  MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions.macros,{\r\n    cancel: [\"Extension\",\"cancel\"],\r\n    bcancel: [\"Extension\",\"cancel\"],\r\n    xcancel: [\"Extension\",\"cancel\"],\r\n    cancelto: [\"Extension\",\"cancel\"]\r\n  });\r\n});\r\n\\[\r\n\\begin{eqnarray}\r\ng(t) & = & \\int_{-\\infty}^{\\infty}f(\\tau)h(t - \\tau)d\\tau = \\\\\r\n     & = & \\int_{-\\infty}^{0}0h(t - \\tau)d\\tau  + \\int_{0}^{\\infty}f(\\tau)0d\\tau = 0\\\\\r\n\\end{eqnarray}\r\n\\]\r\nSe \\(-1 \\le t \\le 1\\)\r\n\\[\r\n\\begin{eqnarray}\r\ng(t) & = & \\int_{-\\infty}^{\\infty}f(\\tau)h(t - \\tau)d\\tau = \\\\\r\n     & = & \\cancel{\\int_{t-1}^{0}e^{-\\lambda\\tau}0d\\tau}  + \\int_{0}^{t+1}e^{-\\lambda\\tau}1d\\tau = \\\\\r\n     & = & \\frac{-e^{-\\lambda\\tau}}{\\lambda}\\bigg\\rvert_{0}^{t+1} = \\frac{1 - e^{-\\lambda(t+1)}}{\\lambda}\\\\\r\n\\end{eqnarray}\r\n\\]\r\nSe \\(t \\gt 1\\)\r\n\\[\r\n\\begin{eqnarray}\r\ng(t) & = & \\int_{-\\infty}^{\\infty}f(\\tau)h(t - \\tau)d\\tau = \\\\\r\n     & = & \\int_{t-1}^{t+1}e^{-\\lambda\\tau}d\\tau = \\\\\r\n     & = & \\frac{-e^{-\\lambda\\tau}}{\\lambda}\\bigg\\rvert_{t-1}^{t+1} = \\frac{-e^{-\\lambda\\tau}}{\\lambda}\\bigg\\rvert_{0}^{t+1} = \\frac{e^{-\\lambda(t-1)} - e^{-\\lambda(t+1)}}{\\lambda}\\\\\r\n\\end{eqnarray}\r\n\\]\r\n\r\n\r\nts  <- seq(-2,10,l=100)\r\ng <- function(t, l = 1) {\r\n  dplyr::case_when(\r\n    t < -1 ~ 0,\r\n    t < 1 ~ (1 - exp(-l*(t+1)))/l,\r\n    t >= 1 ~ (exp(-l*(t-1)) - exp(-l*(t+1)))/l\r\n  )\r\n}\r\n\r\nplot(ts, g(ts), type = \"l\")\r\n\r\n\r\n\r\n\r\nItem (b)\r\nSeja \\(F(\\omega)\\) e \\(H(\\omega)\\) as respectivas trasnformadas de Fourier de \\(f(t)\\) e \\(h(t)\\) respectivamente.\r\n\\[\r\n\\begin{eqnarray}\r\nF(\\omega) & = & \\int_{0}^{\\infty}e^{-\\lambda \\tau} e^{-i 2 \\pi  \\omega \\tau} d\\tau = \\frac{1}{\\lambda + 2i\\pi\\omega}\\\\\r\nH(\\omega) & = & \\int_{-1}^{1} e^{-i 2 \\pi  \\omega \\tau} d\\tau = \\frac{\\sin(2\\pi\\omega)}{\\pi \\omega}\\\\\r\n\\end{eqnarray}\r\n\\]\r\nO teorema da convolução garante que\r\n\\[\r\n\\mathcal{F} \\big\\{g(t)\\big\\} = \\mathcal{F} \\Bigg\\{ \\int_{-\\infty}^{\\infty}f(\\tau)\\cdot h(t - \\tau)d\\tau \\Bigg\\} = F(\\omega)\\cdot H(\\omega) = \\frac{1}{\\lambda + 2i\\pi\\omega}\\frac{\\sin(2\\pi\\omega)}{\\pi \\omega}\r\n\\]\r\nAgora aplicamos a transformada de Fourier inversa para retomarmos \\(g(t)\\)\r\n\\[\r\n\\begin{eqnarray}\r\ng(t) &=& \\mathcal{F}^{-1}\\big\\{\\mathcal{F}\\{g(t)\\}\\big\\} = \\mathcal{F}^{-1}\\Bigg\\{\\frac{1}{\\lambda + 2i\\pi\\omega}\\frac{\\sin(2\\pi\\omega)}{\\pi \\omega}\\Bigg\\} = \\\\\r\n&=& \\int_{-\\infty}^{\\infty}\\\\\r\n\\end{eqnarray}\r\n\\]\r\nExtra - GIF da convolução\r\n\r\n\r\n\r\n## Código pra gerar o gif\r\nanimation::saveGIF({\r\n  f <- function(t, l = 1) (t>0)*exp(-t*l)\r\n  h <- function(t) as.numeric(abs(t) < 1)\r\n  g <- function(t, tau = seq(-2,10,l=1000)) sapply(t, function(t) mean(f(tau) * h(t-tau)))\r\n\r\n  par(mfrow = c(2,1))\r\n  tau <- seq(-2,10,l=1000)\r\n  ts  <- seq(-2,10,l=100)\r\n  gs <- c()\r\n\r\n  for(t in ts) {\r\n    plot(tau, h(t-tau), type = \"l\")\r\n    lines(tau, f(tau), col = \"red\")\r\n    \r\n    gs <- c(gs, g(t))\r\n    plot(ts[1:length(gs)], gs, \r\n         xlim = range(ts), ylim = c(0,0.08), \r\n         type = \"l\", xlab = \"t\", ylab = \"g(t)\")\r\n    \r\n    Sys.sleep(0.05)\r\n  }\r\n}, interval = 0.05)\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
     "preview": "posts/2021-04-17-exerccio-3/exercicio-3.png",
-    "last_modified": "2021-04-17T02:18:42-03:00",
+    "last_modified": "2021-05-31T18:59:03-03:00",
     "input_file": "exerccio-3.utf8.md"
   },
   {

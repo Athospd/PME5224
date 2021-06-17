@@ -1,0 +1,24 @@
+---
+title: "Exercício 5"
+description: |
+  Transformada Z.
+preview: exercicio-5.png
+author:
+  - first_name: "Athos"
+    last_name: "Damiani"
+    url: https://github.com/athospd
+    affiliation: PPGEM - POLI/USP
+    affiliation_url: http://ppgem.poli.usp.br/pt/
+    orcid_id: 0000-0002-2857-5936
+date: 05-03-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+```
+
+![](exercicio-5.png)
