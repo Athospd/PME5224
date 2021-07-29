@@ -454,15 +454,8 @@ d-title {
   top: 0;
 }
 
-/* adjust viewport for navbar height */
-/* helps vertically center bootstrap (non-distill) content */
-.min-vh-100 {
-  min-height: calc(100vh - 100px) !important;
-}
-
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -570,21 +563,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           var results = fuse.search(query, searchOptions);
           callback(results
             .map(function(result) { return result.item; })
+            .filter(function(item) { return !!item.description; })
           );
         },
         templates: {
           suggestion: function(suggestion) {
-            var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
-              ? `<img src="${offsetURL(suggestion.preview)}"</img>`
-              : '';
             var html = `
               <div class="search-item">
                 <h3>${suggestion.title}</h3>
                 <div class="search-item-description">
-                  ${suggestion.description || ''}
+                  ${suggestion.description}
                 </div>
                 <div class="search-item-preview">
-                  ${img}
+                  <img src="${suggestion.preview ? offsetURL(suggestion.preview) : ''}"</img>
                 </div>
               </div>
             `;
@@ -607,10 +598,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 
 <style type="text/css">
-
-.nav-search {
-  font-size: x-small;
-}
 
 /* Algolioa Autocomplete */
 
@@ -686,7 +673,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 }
 
 .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
-  font-size: 1rem;
   margin-block-start: 0;
   margin-block-end: 5px;
 }
@@ -914,11 +900,6 @@ d-article pre a:hover {
   text-decoration: underline;
 }
 
-d-article details {
-  grid-column: text;
-  margin-bottom: 0.8em;
-}
-
 @media(min-width: 768px) {
 
 d-article pre,
@@ -1073,17 +1054,6 @@ d-article .citation {
 
 div.hanging-indent{
   margin-left: 1em; text-indent: -1em;
-}
-
-/* Citation hover box */
-
-.tippy-box[data-theme~=light-border] {
-  background-color: rgba(250, 250, 250, 0.95);
-}
-
-.tippy-content > p {
-  margin-bottom: 0;
-  padding: 2px;
 }
 
 
@@ -1751,7 +1721,7 @@ function init_distill() {
     var layout = $(this).attr('data-layout');
 
     // apply layout to markdown level block elements
-    var elements = $(this).children().not('details, div.sourceCode, pre, script');
+    var elements = $(this).children().not('div.sourceCode, pre, script');
     elements.each(function(i, el) {
       var layout_div = $('<div class="' + layout + '"></div>');
       if (layout_div.hasClass('shaded')) {
@@ -1866,20 +1836,6 @@ function init_distill() {
     // move appendix-bottom entries to the bottom
     $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
     $('.appendix-bottom').remove();
-
-    // hoverable references
-    $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
-      window.tippy(this, {
-        allowHTML: true,
-        content: refHtml,
-        maxWidth: 500,
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'light-border',
-        placement: 'bottom-start'
-      });
-    });
 
     // clear polling timer
     clearInterval(tid);
@@ -2040,12 +1996,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="../../site_libs/header-attrs-2.6/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
-  <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="../../site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
   <script src="../../site_libs/anchor-4.2.2/anchor.min.js"></script>
   <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
@@ -2101,11 +2053,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <h3 id="item-a">Item (a)</h3>
 <p>Com período <span class="math inline">\(T_0=3\)</span>, tem-se <span class="math inline">\(\omega_0 = \frac{2\pi}{3}\)</span> e a expressão da série de Fourier de <span class="math inline">\(f(t)\)</span> fica</p>
 <p><span class="math display">\[
-f(t) = \frac{a_0}{2} + \sum_{n = -\infty}^{\infty} \bigg[a_n\cos(2\pi t/3) + b_n\sin(2\pi t/3)\bigg] 
+f(t) = a_0 + \sum_{n = -\infty}^{\infty} \bigg[a_n\cos(2\pi t/3) + b_n\sin(2\pi t/3)\bigg] 
 \]</span> em que <span class="math inline">\(a_0\)</span>, <span class="math inline">\(a_n\)</span> e <span class="math inline">\(b_n\)</span> são: (calculados pelo <a href="https://www.wolframalpha.com/">Wolfram Alpha</a>)</p>
 <p><span class="math display">\[
 \begin{eqnarray}
-a_0 &amp; = &amp; \frac{2}{3} \bigg[ \int_0^10dt + \int_1^2(t-1)dt + \int_2^3(4-t)dt\bigg] = \frac{2}{3} \bigg[ 0 + \frac{1}{2} + \frac{3}{2} \bigg] = \bbox[border: 1px solid black]{\frac{4}{3}}\\
+a_0 &amp; = &amp; \frac{1}{3} \bigg[ \int_0^10dt + \int_1^2(t-1)dt + \int_2^3(4-t)dt\bigg] = \frac{1}{3} \bigg[ 0 + \frac{1}{2} + \frac{3}{2} \bigg] = \bbox[border: 1px solid black]{\frac{2}{3}}\\
 \\
 a_n &amp; = &amp; \frac{2}{3} \bigg[ \int_0^10dt + \int_1^2(t-1)cos(n2\pi/3)dt + \int_2^3(4-t)cos(n2\pi/3)dt\bigg] = \\
     &amp; = &amp; \bbox[border: 1px solid black]{\frac{\sin(n\pi/3)}{\pi^2n^2}\bigg[3\sin(5n\pi/3) + 2n\pi\cos(5n\pi/3) -3\sin(n\pi) \bigg]}\\
@@ -2117,7 +2069,7 @@ b_n &amp; = &amp; \frac{2}{3} \bigg[ \int_0^10dt + \int_1^2(t-1)sin(n2\pi/3)dt +
 <h3 id="item-b">Item (b)</h3>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#an</span>
+<pre><code><span class='co'>#an</span>
 <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>pi</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>*</span><span class='va'>n</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'>*</span> <span class='op'>(</span><span class='fl'>3</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>*</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>2</span><span class='op'>*</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>cos</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>*</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>3</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Trig.html'>sin</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>*</span><span class='va'>pi</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>#bn</span>
@@ -2136,7 +2088,7 @@ a_3 &amp; = &amp; -2.59878e-17 &amp; ; &amp; b_3 &amp; = &amp;  \phantom{-}4.136
 <p>Segundo o <a href="http://people.math.harvard.edu/~knill/teaching/math22b2019/handouts/lecture31.pdf">Teorema de Parseval</a>, a potẽncia média <span class="math inline">\(\bar{P}\)</span> dos três primeiros harmônicos é:</p>
 <p><span class="math display">\[
 \begin{eqnarray}
-\bar{P} &amp; = &amp; a_0^2 + \sum_1^3 (a_n^2 + b_n^2) = \bbox[border: 1px solid black]{2.598565}\\
+\bar{P} &amp; = &amp; a_0^2 + \sum_1^3 (a_n^2 + b_n^2) = \bbox[border: 1px solid black]{1.265}\\
 \end{eqnarray}
 \]</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>

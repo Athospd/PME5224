@@ -2,19 +2,15 @@
 title: "Exercício 3"
 description: |
   Teorema da Convolução.
-preview: exercicio-3.png
-author:
-  - first_name: "Athos"
-    last_name: "Damiani"
-    url: https://github.com/athospd
-    affiliation: PPGEM - POLI/USP
-    affiliation_url: http://ppgem.poli.usp.br/pt/
-    orcid_id: 0000-0002-2857-5936
+author:  "Athos Damiani (NUSP 6796736)"
 date: 04-17-2021
-header-includes: \usepackage[makeroom]{cancel}
 output:
-  distill::distill_article:
-    self_contained: false
+  pdf_document
+header-includes: 
+  - \usepackage[makeroom]{cancel}
+  - \usepackage{amsmath}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{lmodern}
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +34,7 @@ lines(tau, f(tau), col = "red")
 
 ### Item (a)
 
-Se $t \lt -1$
+Se $t \textless -1$
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -51,32 +47,32 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 });
 </script>
 
-$$
+
 \begin{eqnarray}
 g(t) & = & \int_{-\infty}^{\infty}f(\tau)h(t - \tau)d\tau = \\
      & = & \int_{-\infty}^{0}0h(t - \tau)d\tau  + \int_{0}^{\infty}f(\tau)0d\tau = 0\\
 \end{eqnarray}
-$$
+
 
 Se $-1 \le t \le 1$ 
 
-$$
+
 \begin{eqnarray}
 g(t) & = & \int_{-\infty}^{\infty}f(\tau)h(t - \tau)d\tau = \\
      & = & \cancel{\int_{t-1}^{0}e^{-\lambda\tau}0d\tau}  + \int_{0}^{t+1}e^{-\lambda\tau}1d\tau = \\
      & = & \frac{-e^{-\lambda\tau}}{\lambda}\bigg\rvert_{0}^{t+1} = \frac{1 - e^{-\lambda(t+1)}}{\lambda}\\
 \end{eqnarray}
-$$
 
-Se $t \gt 1$ 
 
-$$
+Se $t \textgreater 1$ 
+
+
 \begin{eqnarray}
 g(t) & = & \int_{-\infty}^{\infty}f(\tau)h(t - \tau)d\tau = \\
      & = & \int_{t-1}^{t+1}e^{-\lambda\tau}d\tau = \\
      & = & \frac{-e^{-\lambda\tau}}{\lambda}\bigg\rvert_{t-1}^{t+1} = \frac{-e^{-\lambda\tau}}{\lambda}\bigg\rvert_{0}^{t+1} = \frac{e^{-\lambda(t-1)} - e^{-\lambda(t+1)}}{\lambda}\\
 \end{eqnarray}
-$$
+
 
 
 ```{r}
@@ -97,12 +93,12 @@ plot(ts, g(ts), type = "l")
 
 Seja $F(\omega)$ e $H(\omega)$ as respectivas trasnformadas de Fourier de $f(t)$ e $h(t)$ respectivamente. 
 
-$$
+
 \begin{eqnarray}
 F(\omega) & = & \int_{0}^{\infty}e^{-\lambda \tau} e^{-i 2 \pi  \omega \tau} d\tau = \frac{1}{\lambda + 2i\pi\omega}\\
 H(\omega) & = & \int_{-1}^{1} e^{-i 2 \pi  \omega \tau} d\tau = \frac{\sin(2\pi\omega)}{\pi \omega}\\
 \end{eqnarray}
-$$
+
 
 O teorema da convolução garante que 
 
@@ -112,17 +108,13 @@ $$
 
 Agora aplicamos a transformada de Fourier inversa para retomarmos $g(t)$
 
-$$
+
 \begin{eqnarray}
 g(t) &=& \mathcal{F}^{-1}\big\{\mathcal{F}\{g(t)\}\big\} = \mathcal{F}^{-1}\Bigg\{\frac{1}{\lambda + 2i\pi\omega}\frac{\sin(2\pi\omega)}{\pi \omega}\Bigg\} = \\
 &=& \int_{-\infty}^{\infty}\\
 \end{eqnarray}
-$$
 
 
-### Extra - GIF da convolução
-
-![](images/conv_gif.gif){width="400"}
 
 ```{r, eval=FALSE, echo = TRUE}
 ## Código pra gerar o gif

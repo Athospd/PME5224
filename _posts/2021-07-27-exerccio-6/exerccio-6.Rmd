@@ -1,0 +1,19 @@
+---
+title: "Exercício 6"
+author:  "Athos Damiani (NUSP 6796736)"
+date: 07-27-2021
+output:
+  pdf_document
+header-includes: 
+  - \usepackage[makeroom]{cancel}
+  - \usepackage{amsmath}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{lmodern}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+![](exercicio-6.png)
